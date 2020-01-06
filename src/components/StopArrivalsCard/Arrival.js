@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
+import useDimensions from "../../utilities/useDimensions";
 import DragPanel from "../DragPanel";
 
 const StyledArrval = styled.li`
@@ -60,20 +61,21 @@ const DeleteButton = styled.button`
   right: -100px;
   font-size: 15px;
   width: 100px;
+
+  &:active {
+    background-color: ${props => props.theme.colors.primaryActive};
+  }
 `;
 
 const Arrival = props => {
-  const handleDragPanelUpdate = () => {
-    console.log("Drag panel ipdateing being called");
-  };
-
   return (
     <StyledArrval>
       <DragPanel
         className="dragPanel"
-        stopPoints={[0]}
+        stopPoints={[0, -100]}
         onStopPointReached={() => {}}
-        onUpdate={handleDragPanelUpdate}
+        bounds={[-100, 0]}
+        onUpdate={() => {}}
       >
         <VehicleDetails>
           <h3>271</h3>
@@ -85,7 +87,9 @@ const Arrival = props => {
           </TimesNext>
           <TimesAfter>then 9 mins</TimesAfter>
         </VehicleTimes>
-        <DeleteButton>Delete</DeleteButton>
+        <DeleteButton onClick={() => console.log("Clcked")}>
+          Delete
+        </DeleteButton>
       </DragPanel>
     </StyledArrval>
   );
