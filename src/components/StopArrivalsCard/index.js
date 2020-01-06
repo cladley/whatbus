@@ -18,6 +18,7 @@ const StyledStopArrivalsCard = styled.div`
 
   ul {
     background-color: ${props => props.theme.colors.backgroundLight};
+    overflow: hidden;
   }
 
   li:not(:last-child) {
