@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
-import useDimensions from "../../utilities/useDimensions";
 import DragPanel from "../DragPanel";
 
-const StyledArrval = styled.li`
+const StyledArrval = styled.div`
+  overflow: hidden;
+  height: 68px;
+
   .dragPanel {
     display: flex;
+    height: 100%;
     width: 100%;
     padding: 12px 15px;
     position: relative;
@@ -67,7 +70,7 @@ const DeleteButton = styled.button`
   }
 `;
 
-const Arrival = props => {
+const Arrival = ({ name, number, onDeleteItem }) => {
   return (
     <StyledArrval>
       <DragPanel
@@ -78,8 +81,8 @@ const Arrival = props => {
         onUpdate={() => {}}
       >
         <VehicleDetails>
-          <h3>271</h3>
-          <p>Moorgate, Finsbury Square</p>
+          <h3>{number}</h3>
+          <p>{name}</p>
         </VehicleDetails>
         <VehicleTimes>
           <TimesNext>
@@ -87,9 +90,7 @@ const Arrival = props => {
           </TimesNext>
           <TimesAfter>then 9 mins</TimesAfter>
         </VehicleTimes>
-        <DeleteButton onClick={() => console.log("Clcked")}>
-          Delete
-        </DeleteButton>
+        <DeleteButton onClick={onDeleteItem}>Delete</DeleteButton>
       </DragPanel>
     </StyledArrval>
   );
