@@ -70,7 +70,7 @@ const DeleteButton = styled.button`
   }
 `;
 
-const Arrival = ({ name, number, onDeleteItem }) => {
+const Arrival = ({ destination, number, onDelete }) => {
   return (
     <StyledArrval>
       <DragPanel
@@ -81,8 +81,8 @@ const Arrival = ({ name, number, onDeleteItem }) => {
         onUpdate={() => {}}
       >
         <VehicleDetails>
-          <h3>{number}</h3>
-          <p>{name}</p>
+          <h3 data-testid="vehicle-number">{number}</h3>
+          <p data-testid="destination">{destination}</p>
         </VehicleDetails>
         <VehicleTimes>
           <TimesNext>
@@ -90,7 +90,7 @@ const Arrival = ({ name, number, onDeleteItem }) => {
           </TimesNext>
           <TimesAfter>then 9 mins</TimesAfter>
         </VehicleTimes>
-        <DeleteButton onClick={onDeleteItem}>Delete</DeleteButton>
+        <DeleteButton onClick={onDelete}>Delete</DeleteButton>
       </DragPanel>
     </StyledArrval>
   );

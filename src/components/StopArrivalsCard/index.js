@@ -6,6 +6,7 @@ import Arrival from "./Arrival";
 const StyledStopArrivalsCard = styled.div`
   box-shadow: ${props => props.theme.shadows.card};
   background: ${props => props.theme.colors.background};
+  margin-bottom: 20px;
 
   header {
     background: ${props => props.theme.colors.primary};
@@ -31,29 +32,18 @@ const StyledStopArrivalsCard = styled.div`
   }
 `;
 
-const StopArrivalsCard = ({ name = "Please add name", arrivals = [] }) => {
-  const [items, setItems] = useState([
-    {
-      id: "asdasd",
-      number: "217",
-      name: "Seven Sisters Road / Parkhurst Road"
-    },
-    { id: "vxcvxcv", number: "32", name: "Finsbury Park" },
-    { id: "erwerw", number: "264", name: "Oxford Street" }
-  ]);
-
+const StopArrivalsCard = ({
+  name = "Please add name",
+  arrivals = [],
+  deleteArrival
+}) => {
   // NOTE: had to hardcode the height of the Arrival card here to
   // get the animation of height: 0 to work.
-  const transitions = useTransition(items, item => item.id, {
+  const transitions = useTransition(arrivals, arrival => arrival.id, {
     from: { height: 68 },
     enter: { height: 68 },
     leave: { height: 0 }
   });
-
-  const deleteItem = id => {
-    const remainingItems = items.filter(item => item.id !== id);
-    setItems(remainingItems);
-  };
 
   return (
     <StyledStopArrivalsCard>
@@ -67,8 +57,8 @@ const StopArrivalsCard = ({ name = "Please add name", arrivals = [] }) => {
               <Arrival
                 id={item.id}
                 number={item.number}
-                name={item.name}
-                onDeleteItem={() => deleteItem(item.id)}
+                destination={item.destination}
+                onDelete={() => deleteArrival(item.id)}
               ></Arrival>
             </animated.li>
           );
