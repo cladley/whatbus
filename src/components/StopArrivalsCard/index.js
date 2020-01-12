@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { useTransition, animated } from "react-spring";
+import PropTypes from "prop-types";
 import Arrival from "./Arrival";
 
 const StyledStopArrivalsCard = styled.div`
@@ -32,11 +33,22 @@ const StyledStopArrivalsCard = styled.div`
   }
 `;
 
-const StopArrivalsCard = ({
-  name = "Please add name",
-  arrivals = [],
-  deleteArrival
-}) => {
+const StopArrivalsCard = ({ name = "Please add name" }) => {
+  const [arrivals, setArrivals] = useState([
+    {
+      id: "asdasd",
+      number: "217",
+      destination: "Seven Sisters Road / Parkhurst Road"
+    },
+    { id: "vxcvxcv", number: "32", destination: "Finsbury Park" },
+    { id: "erwerw", number: "264", destination: "Oxford Street" }
+  ]);
+
+  const handleDeleteArrival = id => {
+    const remainingArrivals = arrivals.filter(item => item.id !== id);
+    setArrivals(remainingArrivals);
+  };
+
   // NOTE: had to hardcode the height of the Arrival card here to
   // get the animation of height: 0 to work.
   const transitions = useTransition(arrivals, arrival => arrival.id, {
@@ -58,7 +70,7 @@ const StopArrivalsCard = ({
                 id={item.id}
                 number={item.number}
                 destination={item.destination}
-                onDelete={() => deleteArrival(item.id)}
+                onDelete={() => handleDeleteArrival(item.id)}
               ></Arrival>
             </animated.li>
           );
@@ -66,6 +78,11 @@ const StopArrivalsCard = ({
       </ul>
     </StyledStopArrivalsCard>
   );
+};
+
+StopArrivalsCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  naptanId: PropTypes.string.isRequired
 };
 
 export default StopArrivalsCard;
