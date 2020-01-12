@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components//macro";
+import { useSelector } from "react-redux";
 import StopArrivalsCard from "../components/StopArrivalsCard";
 
 const StyledHomeView = styled.div`
@@ -7,12 +8,20 @@ const StyledHomeView = styled.div`
 `;
 
 const HomeView = props => {
+  const arrivals = useSelector(state => state.arrivals);
+
   return (
     <StyledHomeView>
-      <StopArrivalsCard
-        name="Seven Sisters Road / Parkhurst Road"
-        naptanId="490013836F"
-      ></StopArrivalsCard>
+      {Object.keys(arrivals).map(naptanId => {
+        const stop = arrivals[naptanId];
+        return (
+          <StopArrivalsCard
+            key={naptanId}
+            naptanId={naptanId}
+            name={stop.name}
+          ></StopArrivalsCard>
+        );
+      })}
       {/* <StopArrivalsCard name="Manor Gardens" arrivals={[]}></StopArrivalsCard> */}
     </StyledHomeView>
   );

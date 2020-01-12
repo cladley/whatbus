@@ -33,7 +33,7 @@ const StyledStopArrivalsCard = styled.div`
   }
 `;
 
-const StopArrivalsCard = ({ name = "Please add name" }) => {
+const StopArrivalsCard = ({ naptanId = "", name = "Please add name" }) => {
   const [arrivals, setArrivals] = useState([
     {
       id: "asdasd",
