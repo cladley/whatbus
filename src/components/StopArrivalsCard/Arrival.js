@@ -70,7 +70,35 @@ const DeleteButton = styled.button`
   }
 `;
 
-const Arrival = ({ destination, number, onDelete }) => {
+const Arrival = ({ destination, number, vehicles, onDelete }) => {
+  if (!vehicles) return null;
+
+  const calculateArrivalTime = time => {
+    const arrivalTime = new Date(time);
+    const diff = arrivalTime - new Date();
+    return Math.floor(diff / 1000 / 60);
+  };
+
+  const getNextArrivalTimes = vehicles => {
+    return (
+      vehicles
+        .map(vehicle => {
+          return calculateArrivalTime(vehicle.expectedArrival);
+        })
+        .join(", ") + " mins"
+    );
+  };
+
+  const orderByArrivalTime = vehicles.sort((v1, v2) => {
+    return new Date(v1.expectedArrival) - new Date(v2.expectedArrival);
+  });
+
+  const nextVehicleDue = orderByArrivalTime[0];
+  let nextVehicleDueTime = calculateArrivalTime(nextVehicleDue.expectedArrival);
+
+  nextVehicleDueTime = nextVehicleDueTime <= 0 ? "due" : nextVehicleDueTime;
+  const nextArrivalTimes = getNextArrivalTimes(orderByArrivalTime.slice(1));
+
   return (
     <StyledArrval>
       <DragPanel
@@ -82,13 +110,14 @@ const Arrival = ({ destination, number, onDelete }) => {
       >
         <VehicleDetails>
           <h3 data-testid="vehicle-number">{number}</h3>
-          <p data-testid="destination">{destination}</p>
+          <p data-testid="destination">{nextVehicleDue.destinationName}</p>
         </VehicleDetails>
         <VehicleTimes>
           <TimesNext>
-            6 <span className="mins">mins</span>
+            {nextVehicleDueTime}
+            {nextVehicleDueTime !== "due" && <span className="mins">mins</span>}
           </TimesNext>
-          <TimesAfter>then 9 mins</TimesAfter>
+          <TimesAfter>then {nextArrivalTimes}</TimesAfter>
         </VehicleTimes>
         <DeleteButton onClick={onDelete}>Delete</DeleteButton>
       </DragPanel>

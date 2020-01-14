@@ -22,4 +22,17 @@ const setArrivalPredictionsForStop = (naptanId, data) => {
   };
 };
 
-export { getArrivalPredictionsForStop };
+const removeRouteFromArrivalPredictionsForStop = (naptanId, routeNumber) => {
+  return {
+    type: "REMOVE_ROUTE_PREDICTIONS",
+    payload: {
+      naptanId,
+      routeNumber
+    }
+  };
+};
+
+export {
+  getArrivalPredictionsForStop,
+  removeRouteFromArrivalPredictionsForStop
+};

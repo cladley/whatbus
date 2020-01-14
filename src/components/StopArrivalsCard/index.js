@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { useTransition, animated } from "react-spring";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import useInterval from "../../utilities/useInterval";
 import Arrival from "./Arrival";
-import { getArrivalPredictionsForStop } from "../../actions";
+import {
+  getArrivalPredictionsForStop,
+  removeRouteFromArrivalPredictionsForStop
+} from "../../actions";
 
 const StyledStopArrivalsCard = styled.div`
   box-shadow: ${props => props.theme.shadows.card};
@@ -39,36 +42,47 @@ const StyledStopArrivalsCard = styled.div`
 
 const StopArrivalsCard = ({ naptanId = "", name = "Please add name" }) => {
   const dispatch = useDispatch();
-  const [arrivals, setArrivals] = useState([
-    {
-      id: "asdasd",
-      number: "217",
-      destination: "Seven Sisters Road / Parkhurst Road"
-    },
-    { id: "vxcvxcv", number: "32", destination: "Finsbury Park" },
-    { id: "erwerw", number: "264", destination: "Oxford Street" }
-  ]);
+
+  const arrivals = useSelector(state => {
+    return state.arrivals[naptanId].arrivals;
+  });
+
+  const routeNumbers = useSelector(state => {
+    return state.arrivals[naptanId].routeNumbers;
+  });
+
+  const [visibleRouteNumbers, setVisibleRouteNumbers] = useState(routeNumbers);
 
   useInterval(
     () => {
       dispatch(getArrivalPredictionsForStop(naptanId));
     },
-    20000,
-    false
+    60000,
+    true
   );
 
-  const handleDeleteArrival = id => {
-    const remainingArrivals = arrivals.filter(item => item.id !== id);
-    setArrivals(remainingArrivals);
+  const handleDeleteArrival = routeNumber => {
+    const remainingRouteNumbers = visibleRouteNumbers.filter(
+      rN => rN !== routeNumber
+    );
+    setVisibleRouteNumbers(remainingRouteNumbers);
   };
 
   // NOTE: had to hardcode the height of the Arrival card here to
   // get the animation of height: 0 to work.
-  const transitions = useTransition(arrivals, arrival => arrival.id, {
-    from: { height: 68 },
-    enter: { height: 68 },
-    leave: { height: 0 }
-  });
+  const transitions = useTransition(
+    visibleRouteNumbers,
+    routeNumber => routeNumber,
+    {
+      from: { height: 68 },
+      enter: { height: 68 },
+      leave: { height: 0 },
+      onDestroyed: routeNumber =>
+        dispatch(
+          removeRouteFromArrivalPredictionsForStop(naptanId, routeNumber)
+        )
+    }
+  );
 
   return (
     <StyledStopArrivalsCard>
@@ -80,10 +94,11 @@ const StopArrivalsCard = ({ naptanId = "", name = "Please add name" }) => {
           return (
             <animated.li key={key} style={props}>
               <Arrival
-                id={item.id}
-                number={item.number}
-                destination={item.destination}
-                onDelete={() => handleDeleteArrival(item.id)}
+                id={item}
+                number={item}
+                vehicles={arrivals[item]}
+                destination={item}
+                onDelete={() => handleDeleteArrival(item)}
               ></Arrival>
             </animated.li>
           );
