@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import { useTransition, animated } from "react-spring";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+
+import useInterval from "../../utilities/useInterval";
 import Arrival from "./Arrival";
+import { getArrivalPredictionsForStop } from "../../actions";
 
 const StyledStopArrivalsCard = styled.div`
   box-shadow: ${props => props.theme.shadows.card};
@@ -34,6 +38,7 @@ const StyledStopArrivalsCard = styled.div`
 `;
 
 const StopArrivalsCard = ({ naptanId = "", name = "Please add name" }) => {
+  const dispatch = useDispatch();
   const [arrivals, setArrivals] = useState([
     {
       id: "asdasd",
@@ -43,6 +48,14 @@ const StopArrivalsCard = ({ naptanId = "", name = "Please add name" }) => {
     { id: "vxcvxcv", number: "32", destination: "Finsbury Park" },
     { id: "erwerw", number: "264", destination: "Oxford Street" }
   ]);
+
+  useInterval(
+    () => {
+      dispatch(getArrivalPredictionsForStop(naptanId));
+    },
+    20000,
+    false
+  );
 
   const handleDeleteArrival = id => {
     const remainingArrivals = arrivals.filter(item => item.id !== id);
