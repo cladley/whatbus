@@ -75,7 +75,7 @@ const Arrival = ({ destination, number, vehicles, onDelete }) => {
 
   const calculateArrivalTime = time => {
     const arrivalTime = new Date(time);
-    const diff = arrivalTime - new Date();
+    const diff = arrivalTime - Date.now();
     return Math.floor(diff / 1000 / 60);
   };
 
@@ -113,11 +113,15 @@ const Arrival = ({ destination, number, vehicles, onDelete }) => {
           <p data-testid="destination">{nextVehicleDue.destinationName}</p>
         </VehicleDetails>
         <VehicleTimes>
-          <TimesNext>
+          <TimesNext data-testid="next-time">
             {nextVehicleDueTime}
-            {nextVehicleDueTime !== "due" && <span className="mins">mins</span>}
+            {nextVehicleDueTime !== "due" && (
+              <span className="mins"> mins</span>
+            )}
           </TimesNext>
-          <TimesAfter>then {nextArrivalTimes}</TimesAfter>
+          <TimesAfter data-testid="after-times">
+            then {nextArrivalTimes}
+          </TimesAfter>
         </VehicleTimes>
         <DeleteButton onClick={onDelete}>Delete</DeleteButton>
       </DragPanel>
