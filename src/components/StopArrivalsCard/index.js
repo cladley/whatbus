@@ -89,21 +89,23 @@ const StopArrivalsCard = ({ naptanId = "", name = "Please add name" }) => {
       <header>
         <h2>{name}</h2>
       </header>
-      <ul>
-        {transitions.map(({ item, props, key }) => {
-          return (
-            <animated.li key={key} style={props}>
-              <Arrival
-                id={item}
-                number={item}
-                vehicles={arrivals[item]}
-                destination={item}
-                onDelete={() => handleDeleteArrival(item)}
-              ></Arrival>
-            </animated.li>
-          );
-        })}
-      </ul>
+      <div>
+        <ul>
+          {transitions.map(({ item, props, key }) => {
+            return (
+              <animated.li key={key} style={props}>
+                <Arrival
+                  id={item}
+                  number={item}
+                  vehicles={arrivals[item]}
+                  destination={item}
+                  onDelete={() => handleDeleteArrival(item)}
+                ></Arrival>
+              </animated.li>
+            );
+          })}
+        </ul>
+      </div>
     </StyledStopArrivalsCard>
   );
 };

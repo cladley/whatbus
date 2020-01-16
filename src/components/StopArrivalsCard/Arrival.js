@@ -89,7 +89,7 @@ const Arrival = ({ destination, number, vehicles, onDelete }) => {
     );
   };
 
-  const orderByArrivalTime = vehicles.sort((v1, v2) => {
+  const orderByArrivalTime = [...vehicles].sort((v1, v2) => {
     return new Date(v1.expectedArrival) - new Date(v2.expectedArrival);
   });
 

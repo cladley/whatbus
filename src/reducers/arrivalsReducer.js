@@ -1,15 +1,15 @@
-const initialState = {
-  "490013836F": {
-    name: "Seven Sisters Road / Parkhurst Road",
-    routeNumbers: ["17", "263"],
-    arrivals: {
-      "17": null,
-      "263": null
-    }
-  }
-};
+// const initialState = {
+//   "490013836F": {
+//     name: "Seven Sisters Road / Parkhurst Road",
+//     routeNumbers: ["17", "263"],
+//     arrivals: {
+//       "17": null,
+//       "263": null
+//     }
+//   }
+// };
 
-export default (state = initialState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case "SET_ARRIVAL_PREDICTIONS_FOR_STOP": {
       const { naptanId, data } = action.payload;
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
 
       const updatedStopData = {
         name: state[naptanId].name,
-        routeNumbers: state[naptanId].routeNumbers,
+        routeNumbers: [...state[naptanId].routeNumbers],
         arrivals: updatedArrivals
       };
 
@@ -44,6 +44,13 @@ export default (state = initialState, action) => {
         r => r !== routeNumber
       );
 
+      if (updatedRouteNumbers.length <= 0) {
+        // We are not interested in any routes at that stop
+        const newState = { ...state };
+        delete newState[naptanId];
+        return { ...newState };
+      }
+
       const updatedArrivals = { ...stopData.arrivals };
       delete updatedArrivals[routeNumber];
 
@@ -57,6 +64,6 @@ export default (state = initialState, action) => {
     }
 
     default:
-      return state;
+      return { ...state };
   }
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components//macro";
 import { useSelector } from "react-redux";
+
 import StopArrivalsCard from "../components/StopArrivalsCard";
 
 const StyledHomeView = styled.div`
@@ -22,6 +23,7 @@ const HomeView = props => {
           ></StopArrivalsCard>
         );
       })}
+
       {/* <StopArrivalsCard name="Manor Gardens" arrivals={[]}></StopArrivalsCard> */}
     </StyledHomeView>
   );
