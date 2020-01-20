@@ -1,30 +1,14 @@
 import React from "react";
-import styled from "styled-components//macro";
-import { useSelector } from "react-redux";
+import styled from "styled-components/macro";
 
-import StopArrivalsCard from "../components/StopArrivalsCard";
+import BusSearch from "../components/BusSearch";
 
-const StyledHomeView = styled.div`
-  padding: 10px;
-`;
+const StyledHomeView = styled.div``;
 
 const HomeView = props => {
-  const arrivals = useSelector(state => state.arrivals);
-
   return (
     <StyledHomeView>
-      {Object.keys(arrivals).map(naptanId => {
-        const stop = arrivals[naptanId];
-        return (
-          <StopArrivalsCard
-            key={naptanId}
-            naptanId={naptanId}
-            name={stop.name}
-          ></StopArrivalsCard>
-        );
-      })}
-
-      {/* <StopArrivalsCard name="Manor Gardens" arrivals={[]}></StopArrivalsCard> */}
+      <BusSearch />
     </StyledHomeView>
   );
 };
