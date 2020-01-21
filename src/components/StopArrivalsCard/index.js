@@ -43,12 +43,11 @@ const StyledStopArrivalsCard = styled.div`
 const StopArrivalsCard = ({ naptanId = "", name = "Please add name" }) => {
   const dispatch = useDispatch();
 
-  const arrivals = useSelector(state => {
-    return state.arrivals[naptanId].arrivals;
-  });
-
-  const routeNumbers = useSelector(state => {
-    return state.arrivals[naptanId].routeNumbers;
+  const [arrivals, routeNumbers] = useSelector(state => {
+    return [
+      state.arrivals[naptanId].arrivals,
+      state.arrivals[naptanId].routeNumbers
+    ];
   });
 
   const [visibleRouteNumbers, setVisibleRouteNumbers] = useState(routeNumbers);

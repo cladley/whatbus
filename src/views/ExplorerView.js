@@ -1,7 +1,8 @@
 import React from "react";
+import GoogleMap from "../components/GoogleMap";
 
 const ExplorerView = props => {
-  return <h1>Explorer View</h1>;
+  return <GoogleMap />;
 };
 
 export default ExplorerView;

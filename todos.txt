@@ -1,0 +1,1 @@
+. Create component for full screen with no scroll (mobile)

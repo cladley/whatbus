@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import Downshift from "downshift";
 
@@ -44,7 +44,8 @@ const HeaderStyle = styled.header`
 `;
 
 const SearchList = styled.ul`
-  padding: 0 15px;
+  height: calc(100% - 132px);
+  overflow: scroll;
 
   li {
     border-bottom: 1px solid ${props => props.theme.colors.border};
@@ -54,7 +55,7 @@ const SearchList = styled.ul`
 const StyledSearchItem = styled.li`
   display: grid;
   grid-template-columns: 40px 1fr;
-  padding: 10px 0;
+  padding: 10px 15px;
 
   h3 {
     font-weight: 700;
@@ -77,10 +78,18 @@ const SearchItem = ({ name, sections, ...args }) => {
 };
 
 const BusSearch = () => {
+  const headerElementRef = useRef();
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    setHeaderHeight(headerElementRef.current.getBoundingClientRect().height);
+  }, []);
+
   return (
     <Downshift
       onChange={selection => alert(`You selected ${selection.value}`)}
       itemToString={item => (item ? item.value : "")}
+      onOuterClick={() => console.log("outer was clicked")}
     >
       {({
         getInputProps,
@@ -92,43 +101,23 @@ const BusSearch = () => {
         highlightedIndex,
         selectedItem
       }) => (
-        <div>
-          <HeaderStyle>
+        <div className="bus-search">
+          <HeaderStyle ref={headerElementRef}>
             <h2>Find A bus</h2>
             <label {...getLabelProps()}>Enter bus number or location</label>
             <input {...getInputProps()} data-testid="bus-search" />
             <SearchIcon />
           </HeaderStyle>
 
-          <SearchList {...getMenuProps()}>
-            {/* <SearchItem
-              name="216"
-              sections="Oxford street . holloway road . highgate village"
-            />
-            <SearchItem
-              name="216"
-              sections="Oxford street . holloway road . highgate village"
-            />
-            <SearchItem
-              name="216"
-              sections="Oxford street . holloway road . highgate village"
-            />
-            <SearchItem
-              name="216"
-              sections="Oxford street . holloway road . highgate village"
-            />
-            <SearchItem
-              name="216"
-              sections="Oxford street . holloway road . highgate village"
-            />
-            <SearchItem
-              name="216"
-              sections="Oxford street . holloway road . highgate village"
-            />
-            <SearchItem
-              name="216"
-              sections="Oxford street . holloway road . highgate village"
-            /> */}
+          <SearchList
+            {...getMenuProps()}
+            style={{ height: `calc(100% - ${headerHeight}px)` }}
+          >
+            {/* <SearchItem name="271" sections="Oxford Street"></SearchItem>
+            <SearchItem name="271" sections="Oxford Street"></SearchItem>
+            <SearchItem name="271" sections="Oxford Street"></SearchItem>
+            <SearchItem name="271" sections="Oxford Street"></SearchItem>
+            <SearchItem name="271" sections="Oxford Street"></SearchItem> */}
 
             {isOpen
               ? allRoutes
@@ -155,6 +144,7 @@ const BusSearch = () => {
                       name={item.name}
                       sections={item.sections}
                       data-testid="search-item"
+                      onClick={() => console.log(item.name)}
                     >
                       {item.name} - {item.sections}
                     </SearchItem>
