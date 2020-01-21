@@ -2,6 +2,7 @@ import React, { useRef, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import Downshift from "downshift";
 
+import useDimension from "../../utilities/useDimensions";
 import { ReactComponent as SearchIcon } from "../../assets/search.svg";
 import allRoutes from "./routes";
 
@@ -44,7 +45,6 @@ const HeaderStyle = styled.header`
 `;
 
 const SearchList = styled.ul`
-  height: calc(100% - 132px);
   overflow: scroll;
 
   li {
@@ -78,12 +78,7 @@ const SearchItem = ({ name, sections, ...args }) => {
 };
 
 const BusSearch = () => {
-  const headerElementRef = useRef();
-  const [headerHeight, setHeaderHeight] = useState(0);
-
-  useLayoutEffect(() => {
-    setHeaderHeight(headerElementRef.current.getBoundingClientRect().height);
-  }, []);
+  const [headerElementRef, { height: headerHeight }] = useDimension();
 
   return (
     <Downshift
@@ -113,12 +108,6 @@ const BusSearch = () => {
             {...getMenuProps()}
             style={{ height: `calc(100% - ${headerHeight}px)` }}
           >
-            {/* <SearchItem name="271" sections="Oxford Street"></SearchItem>
-            <SearchItem name="271" sections="Oxford Street"></SearchItem>
-            <SearchItem name="271" sections="Oxford Street"></SearchItem>
-            <SearchItem name="271" sections="Oxford Street"></SearchItem>
-            <SearchItem name="271" sections="Oxford Street"></SearchItem> */}
-
             {isOpen
               ? allRoutes
                   .filter(

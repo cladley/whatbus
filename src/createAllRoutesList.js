@@ -1,7 +1,6 @@
 const fetch = require("node-fetch");
 const fs = require("fs");
 
-// const allRoutesUrl = "https://api.tfl.gov.uk/Line/Mode/bus";
 const allRoutesUrl = "https://api.tfl.gov.uk/Line/Route?serviceTypes=Regular";
 
 async function getAllRoutes() {
