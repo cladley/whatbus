@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 
 const StyledCard = styled.div`
   box-shadow: ${props => props.theme.shadows.card};
-  background: ${props => props.theme.colors.background};
+  background: ${props => props.theme.colors.backgroundLight};
 `;
 
 const StyledTitle = styled.header`
@@ -30,8 +30,12 @@ const Content = ({ children }) => {
   return <div>{children}</div>;
 };
 
-const Card = ({ children }) => {
-  return <StyledCard>{children}</StyledCard>;
+const Card = ({ children, className }) => {
+  return (
+    <StyledCard className={className ? `card ${className}` : `card`}>
+      {children}
+    </StyledCard>
+  );
 };
 
 Card.Title = Title;

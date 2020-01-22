@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components/macro";
 
 import BusSearch from "../components/BusSearch";
-import Card from "../components/Card";
 
 const StyledHomeView = styled.div`
   height: 100%;
