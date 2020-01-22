@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Downshift from "downshift";
 

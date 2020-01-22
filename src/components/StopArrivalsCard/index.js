@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import useInterval from "../../utilities/useInterval";
-import Arrival from "./Arrival";
 import {
   getArrivalPredictionsForStop,
   removeRouteFromArrivalPredictionsForStop
 } from "../../actions";
+import Arrival from "./Arrival";
+import Card from "../Card";
 
 const StyledStopArrivalsCard = styled.div`
   box-shadow: ${props => props.theme.shadows.card};
@@ -85,26 +86,26 @@ const StopArrivalsCard = ({ naptanId = "", name = "Please add name" }) => {
 
   return (
     <StyledStopArrivalsCard>
-      <header>
-        <h2>{name}</h2>
-      </header>
-      <div>
-        <ul>
-          {transitions.map(({ item, props, key }) => {
-            return (
-              <animated.li key={key} style={props}>
-                <Arrival
-                  id={item}
-                  number={item}
-                  vehicles={arrivals[item]}
-                  destination={item}
-                  onDelete={() => handleDeleteArrival(item)}
-                ></Arrival>
-              </animated.li>
-            );
-          })}
-        </ul>
-      </div>
+      <Card>
+        <Card.Title text={name}></Card.Title>
+        <Card.Content>
+          <ul>
+            {transitions.map(({ item, props, key }) => {
+              return (
+                <animated.li key={key} style={props}>
+                  <Arrival
+                    id={item}
+                    number={item}
+                    vehicles={arrivals[item]}
+                    destination={item}
+                    onDelete={() => handleDeleteArrival(item)}
+                  ></Arrival>
+                </animated.li>
+              );
+            })}
+          </ul>
+        </Card.Content>
+      </Card>
     </StyledStopArrivalsCard>
   );
 };
