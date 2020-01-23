@@ -28,7 +28,7 @@ const StopDetailsCard = ({ children }) => {
   const cardBottom = -cardHeight + 85;
 
   // setTimeout(() => {
-  //   dragPanelRef.current.sayHello();
+  //   dragPanelRef.current.goToPoint(-250);
   // }, 4000);
 
   return (

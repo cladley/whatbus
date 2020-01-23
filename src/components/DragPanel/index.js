@@ -19,18 +19,20 @@ const DragPanel = forwardRef(
     },
     ref
   ) => {
+    const coordinateLetter = direction === "horizontal" ? "x" : "y";
+
+    const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
+
     useImperativeHandle(ref, () => {
       return {
-        sayHello() {
-          console.log("Helloe");
+        goToPoint(point) {
+          set({ [coordinateLetter]: point, immediate: false });
         }
       };
     });
 
-    const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
     const bind = useDrag(({ vxvy, movement, last, memo, event }) => {
       const coordinate = direction === "horizontal" ? 0 : 1;
-      const coordinateLetter = direction === "horizontal" ? "x" : "y";
 
       if (!memo) {
         memo = {
