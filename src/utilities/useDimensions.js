@@ -5,7 +5,7 @@ const useDimensions = () => {
   const [dimensions, setDimensions] = useState({});
 
   useLayoutEffect(() => {
-    setDimensions(ref.current.getBoundingClientRect().toJSON());
+    setDimensions(ref.current.getBoundingClientRect());
   }, [ref.current]);
 
   return [ref, dimensions];
