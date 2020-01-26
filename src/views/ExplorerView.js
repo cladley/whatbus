@@ -70,7 +70,14 @@ const ExplorerView = props => {
       <GoogleMap>
         {Object.keys(stops).map(naptanId => {
           const stop = stops[naptanId];
-          return <StopMarker lat={stop.lat} lng={stop.lon} />;
+          return (
+            <StopMarker
+              key={naptanId}
+              lat={stop.lat}
+              lng={stop.lon}
+              stopLetter={stop.stopLetter}
+            />
+          );
         })}
       </GoogleMap>
       <StopDetailsCard>
