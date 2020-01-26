@@ -1,6 +1,17 @@
 import * as tfl from "../tfl";
 import * as transforms from "../tfl/transformResponse";
 
+export const getStopByLatLon = (lat, lon, radius = 300) => {
+  return {
+    type: "API",
+    payload: {
+      url: tfl.getStopsByLatLonUrl(lat, lon, radius),
+      transformResponse: transforms.stopsForMapTransform,
+      onSuccess: data => setStopsByLatLon(data)
+    }
+  };
+};
+
 const getArrivalPredictionsForStop = naptanId => {
   return {
     type: "API",
@@ -8,6 +19,15 @@ const getArrivalPredictionsForStop = naptanId => {
       url: tfl.getArrivalPredictionForStopUrl(naptanId),
       transformResponse: transforms.predictionsForStopTransform,
       onSuccess: data => setArrivalPredictionsForStop(naptanId, data)
+    }
+  };
+};
+
+const setStopsByLatLon = data => {
+  return {
+    type: "SET_STOPS_BY_LAT_LON",
+    payload: {
+      data
     }
   };
 };

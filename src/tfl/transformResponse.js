@@ -20,3 +20,22 @@ export const predictionsForStopTransform = data => {
       return accum;
     }, Object.create(null));
 };
+
+export const stopsForMapTransform = data => {
+  return data.stopPoints.reduce((accum, curr) => {
+    accum[curr.naptanId] = {
+      stopLetter: curr.stopLetter,
+      commonName: curr.commonName,
+      lat: curr.lat,
+      lon: curr.lon,
+      modes: curr.modes,
+      lines: curr.lines.map(line => ({
+        id: line.id,
+        name: line.name,
+        uri: line.uri
+      }))
+    };
+
+    return accum;
+  }, Object.create(null));
+};
