@@ -40,11 +40,20 @@ const DragPanel = forwardRef(
           y: y.value - movement[1]
         };
 
-        const isIntentionalGesture =
-          Math.abs(movement[0]) > 10 &&
-          Math.abs(movement[0]) > Math.abs(movement[1]);
+        let isIntentionalGesture;
 
-        // if (!isIntentionalGesture) return;
+        // THIS IS A HACK FOR NOW
+        if (direction === "horizontal") {
+          isIntentionalGesture =
+            Math.abs(movement[0]) > 10 &&
+            Math.abs(movement[0]) > Math.abs(movement[1]);
+        } else {
+          isIntentionalGesture =
+            Math.abs(movement[1]) > 10 &&
+            Math.abs(movement[1]) > Math.abs(movement[0]);
+        }
+
+        if (!isIntentionalGesture) return;
       }
 
       let newValue;

@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ReactComponent as DetailsIcon } from "../assets/details.svg";
+import { ReactComponent as CloseIcon } from "../assets/close.svg";
 import Card from "../components/Card";
 import StopMarker from "../components/StopMarker";
 import DragPanel from "../components/DragPanel";
@@ -31,7 +32,7 @@ const PanelVisibility = {
   FULL: 2
 };
 
-const StopDetailsCard = ({ isStopSelected, onCardHidden, children }) => {
+const StopDetailsCard = ({ stopPoint, onStopPointReached, children }) => {
   const dispatch = useDispatch();
   const dragPanelRef = useRef();
   const { height } = useWindowSize();
@@ -43,13 +44,17 @@ const StopDetailsCard = ({ isStopSelected, onCardHidden, children }) => {
     dispatch(getStopByLatLon(51.560913, -0.120881));
   }, [dispatch]);
 
-  if (isStopSelected) {
-    dragPanelRef.current.goToPoint(panelStopPoints[PanelVisibility.LITTLE]);
-  }
+  useEffect(() => {
+    dragPanelRef.current.goToPoint(panelStopPoints[stopPoint]);
+  }, [stopPoint, panelStopPoints]);
 
   const handleStopPointReached = point => {
     if (point === panelStopPoints[PanelVisibility.HIDDEN]) {
-      onCardHidden();
+      onStopPointReached(PanelVisibility.HIDDEN);
+    } else if (point === panelStopPoints[PanelVisibility.LITTLE]) {
+      onStopPointReached(PanelVisibility.LITTLE);
+    } else if (point === panelStopPoints[PanelVisibility.FULL]) {
+      onStopPointReached(PanelVisibility.FULL);
     }
   };
 
@@ -88,6 +93,15 @@ const DetailsButton = styled.button`
 const ExplorerView = () => {
   const stops = useSelector(({ map }) => map.stopsById);
   const [selectedStopId, setSelectedStopId] = useState(null);
+  const [stopPoint, setStopPoint] = useState(PanelVisibility.HIDDEN);
+
+  const showStopDetails = () => {
+    setStopPoint(PanelVisibility.FULL);
+  };
+
+  const closeStopDetails = () => {
+    setStopPoint(PanelVisibility.HIDDEN);
+  };
 
   return (
     <Page>
@@ -100,22 +114,37 @@ const ExplorerView = () => {
               lat={stop.lat}
               lng={stop.lon}
               stopLetter={stop.stopLetter}
-              onClick={() => setSelectedStopId(naptanId)}
+              onClick={() => {
+                setSelectedStopId(naptanId);
+                setStopPoint(PanelVisibility.LITTLE);
+              }}
             />
           );
         })}
       </GoogleMap>
       <StopDetailsCard
-        isStopSelected={!!selectedStopId}
-        onCardHidden={() => {
-          setSelectedStopId(null);
+        stopPoint={stopPoint}
+        onStopPointReached={point => {
+          setStopPoint(point);
         }}
       >
         <Card>
           <Card.Title text="Hiiiiiii">
-            <DetailsButton aria-label="Show stop details">
-              <DetailsIcon />
-            </DetailsButton>
+            {stopPoint === PanelVisibility.LITTLE ? (
+              <DetailsButton
+                aria-label="Show stop details"
+                onClick={showStopDetails}
+              >
+                <DetailsIcon />
+              </DetailsButton>
+            ) : (
+              <DetailsButton
+                aria-label="Close stop details"
+                onClick={closeStopDetails}
+              >
+                <CloseIcon />
+              </DetailsButton>
+            )}
           </Card.Title>
           <Card.Content>This is some content</Card.Content>
         </Card>
