@@ -60,6 +60,7 @@ const DragPanel = forwardRef(
           stopPoints
         );
 
+        onStopPointReached(newValue);
         set({ [coordinateLetter]: newValue, immediate: false });
       } else {
         newValue = utilities.rubberBandIfOutOfBounds(

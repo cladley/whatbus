@@ -1,6 +1,10 @@
 import { renderHook } from "@testing-library/react-hooks";
 import useInterval from "../useInterval";
 
+afterEach(() => {
+  jest.useRealTimers();
+});
+
 describe("useInteral hook", () => {
   it("Should call the callback immediately when immediate property is set to true", () => {
     const immediate = true;
@@ -40,7 +44,6 @@ describe("useInteral hook", () => {
     jest.useFakeTimers();
     let delay = 1000;
     const callback = jest.fn();
-    jest.useFakeTimers();
 
     const { rerender } = renderHook(() => useInterval(callback, delay));
 

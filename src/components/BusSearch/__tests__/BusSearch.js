@@ -19,6 +19,10 @@ function renderComponent(component) {
 
 jest.mock("../routes");
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("<BusSearch /> component", () => {
   test("render with no errors", () => {
     renderComponent(<BusSearch />);

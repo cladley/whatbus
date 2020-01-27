@@ -9,7 +9,7 @@ const StyledCard = styled.div`
 const StyledTitle = styled.header`
   background: ${props => props.theme.colors.primary};
   color: ${props => props.theme.colors.textLight};
-  padding: 12px 15px;
+  padding: 15px;
   position: relative;
 
   h2 {

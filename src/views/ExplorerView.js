@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import GoogleMap from "../components/GoogleMap";
 import styled from "styled-components/macro";
 import { useDispatch, useSelector } from "react-redux";
 
+import { ReactComponent as DetailsIcon } from "../assets/details.svg";
 import Card from "../components/Card";
 import StopMarker from "../components/StopMarker";
 import DragPanel from "../components/DragPanel";
@@ -24,29 +25,40 @@ const Page = styled.div`
   height: 100%;
 `;
 
-// https://api.tfl.gov.uk/Stoppoint?app_id=6434337f&app_key=ddf7e98f6e48334e7efd30c2cbd9c483&lat=51.560913&lon=-0.120881&stoptypes=NaptanPublicBusCoachTram&radius=376
+const PanelVisibility = {
+  HIDDEN: 0,
+  LITTLE: 1,
+  FULL: 2
+};
 
-const StopDetailsCard = ({ children }) => {
+const StopDetailsCard = ({ isStopSelected, onCardHidden, children }) => {
   const dispatch = useDispatch();
   const dragPanelRef = useRef();
   const { height } = useWindowSize();
   const cardHeight = height / 1.5;
-  const cardBottom = -cardHeight + 85;
+  const cardBottom = -cardHeight;
+  const panelStopPoints = [0, -85, cardBottom];
 
   useEffect(() => {
     dispatch(getStopByLatLon(51.560913, -0.120881));
-  }, []);
+  }, [dispatch]);
 
-  // setTimeout(() => {
-  //   dragPanelRef.current.goToPoint(-250);
-  // }, 4000);
+  if (isStopSelected) {
+    dragPanelRef.current.goToPoint(panelStopPoints[PanelVisibility.LITTLE]);
+  }
+
+  const handleStopPointReached = point => {
+    if (point === panelStopPoints[PanelVisibility.HIDDEN]) {
+      onCardHidden();
+    }
+  };
 
   return (
     <DragPanel
       direction="vertical"
-      stopPoints={[0, -250, cardBottom]}
-      bounds={[-cardHeight, 0]}
-      onStopPointReached={() => console.log("point reached")}
+      stopPoints={panelStopPoints}
+      bounds={[cardBottom, 0]}
+      onStopPointReached={handleStopPointReached}
       onUpdate={() => console.log("updating")}
       ref={dragPanelRef}
     >
@@ -62,8 +74,20 @@ const StopDetailsCard = ({ children }) => {
   );
 };
 
-const ExplorerView = props => {
+const DetailsButton = styled.button`
+  width: 44px;
+  height: 100%;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  position: absolute;
+  right: 0;
+  top: 0;
+`;
+
+const ExplorerView = () => {
   const stops = useSelector(({ map }) => map.stopsById);
+  const [selectedStopId, setSelectedStopId] = useState(null);
 
   return (
     <Page>
@@ -76,13 +100,23 @@ const ExplorerView = props => {
               lat={stop.lat}
               lng={stop.lon}
               stopLetter={stop.stopLetter}
+              onClick={() => setSelectedStopId(naptanId)}
             />
           );
         })}
       </GoogleMap>
-      <StopDetailsCard>
+      <StopDetailsCard
+        isStopSelected={!!selectedStopId}
+        onCardHidden={() => {
+          setSelectedStopId(null);
+        }}
+      >
         <Card>
-          <Card.Title text="Hiiiiiii" />
+          <Card.Title text="Hiiiiiii">
+            <DetailsButton aria-label="Show stop details">
+              <DetailsIcon />
+            </DetailsButton>
+          </Card.Title>
           <Card.Content>This is some content</Card.Content>
         </Card>
       </StopDetailsCard>

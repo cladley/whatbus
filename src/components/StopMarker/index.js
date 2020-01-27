@@ -13,8 +13,8 @@ const StyledStopMarker = styled.div`
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.23);
 `;
 
-const StopMarker = props => {
-  return <StyledStopMarker>{props.stopLetter}</StyledStopMarker>;
+const StopMarker = ({ stopLetter, onClick }) => {
+  return <StyledStopMarker onClick={onClick}>{stopLetter}</StyledStopMarker>;
 };
 
 export default StopMarker;

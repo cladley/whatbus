@@ -9,13 +9,9 @@ const resizeWindow = (x, y) => {
 
 describe("useWindowSize hook", () => {
   it("should return the window size on load", () => {
-    let size;
+    const { result } = renderHook(useWindowSize);
 
-    renderHook(() => {
-      size = useWindowSize();
-    });
-
-    expect(size).toEqual(
+    expect(result.current).toEqual(
       expect.objectContaining({
         height: expect.any(Number),
         width: expect.any(Number)
@@ -24,13 +20,9 @@ describe("useWindowSize hook", () => {
   });
 
   it("should update size when the window resizes", () => {
-    let size;
+    const { rerender, result } = renderHook(useWindowSize);
 
-    const { rerender } = renderHook(() => {
-      size = useWindowSize();
-    });
-
-    let sizeOnLoad = size;
+    let sizeOnLoad = result.current;
 
     act(() => {
       resizeWindow(1000, 2000);
@@ -38,7 +30,7 @@ describe("useWindowSize hook", () => {
 
     rerender();
 
-    expect(size.width).not.toEqual(sizeOnLoad.width);
-    expect(size.height).not.toEqual(sizeOnLoad.height);
+    expect(result.current.width).not.toEqual(sizeOnLoad.width);
+    expect(result.current.height).not.toEqual(sizeOnLoad.height);
   });
 });
