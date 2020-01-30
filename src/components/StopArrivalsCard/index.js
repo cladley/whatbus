@@ -4,7 +4,7 @@ import { useTransition, animated } from "react-spring";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-import useInterval from "../../utilities/useInterval";
+import useInterval from "../../hooks/useInterval";
 import {
   getArrivalPredictionsForStop,
   removeRouteFromArrivalPredictionsForStop

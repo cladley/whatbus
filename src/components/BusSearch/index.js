@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Downshift from "downshift";
 
-import useDimension from "../../utilities/useDimensions";
+import useDimension from "../../hooks/useDimensions";
 import { ReactComponent as SearchIcon } from "../../assets/search.svg";
 import allRoutes from "./routes";
 
