@@ -52,7 +52,17 @@ const removeRouteFromArrivalPredictionsForStop = (naptanId, routeNumber) => {
   };
 };
 
+const setSelectedStop = naptanId => {
+  return {
+    type: "SET_SELECTED_STOP",
+    payload: {
+      naptanId
+    }
+  };
+};
+
 export {
   getArrivalPredictionsForStop,
-  removeRouteFromArrivalPredictionsForStop
+  removeRouteFromArrivalPredictionsForStop,
+  setSelectedStop
 };

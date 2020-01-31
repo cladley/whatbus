@@ -13,11 +13,19 @@ const Page = styled.div`
 const ExplorerView = () => {
   const stops = useSelector(({ map }) => map.stopsById);
   const [selectedStopId, setSelectedStopId] = useState(null);
+  const [selectedStop, setSelectedStop] = useState({});
   const [stopPoint, setStopPoint] = useState(PanelVisibility.HIDDEN);
 
   const handleDetailsPanelClosed = () => {
     setStopPoint(PanelVisibility.HIDDEN);
     setSelectedStopId(null);
+    setSelectedStop({});
+  };
+
+  const handleStopMarkerClick = stop => {
+    setSelectedStopId(stop.naptanId);
+    setSelectedStop(stop);
+    setStopPoint(PanelVisibility.SMALL);
   };
 
   return (
@@ -25,22 +33,21 @@ const ExplorerView = () => {
       <GoogleMap>
         {Object.keys(stops).map(naptanId => {
           const stop = stops[naptanId];
+          console.log(stop);
           return (
             <StopMarker
               key={naptanId}
               lat={stop.lat}
               lng={stop.lon}
               stopLetter={stop.stopLetter}
-              onClick={() => {
-                setSelectedStopId(naptanId);
-                setStopPoint(PanelVisibility.SMALL);
-              }}
+              onClick={() => handleStopMarkerClick(stop)}
             />
           );
         })}
       </GoogleMap>
       <DetailsPanel
         stopId={selectedStopId}
+        selectedStop={selectedStop}
         stopPoint={stopPoint}
         onPanelClosed={handleDetailsPanelClosed}
       ></DetailsPanel>

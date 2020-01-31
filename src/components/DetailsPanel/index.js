@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components/macro";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSpring, animated } from "react-spring";
 
+import QuickViewTitle from "./QuickViewTitle";
+import QuickViewContent from "./QuickViewContent";
 import * as utilities from "../../utilities";
 import useDragger from "../../hooks/useDragger";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -34,20 +36,19 @@ const Header = styled.div`
   top: 0;
   height: calc(40vh + ${HeaderQuickViewHeight}px);
   color: ${props => props.theme.colors.textLight};
+  box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 6px, rgba(0, 0, 0, 0.3) 0px -3px 6px;
+  overflow: hidden;
 
   h2 {
     text-transform: uppercase;
   }
 `;
 
-const QuickViewTitle = styled.h2`
-  padding: 15px;
-  color: ${props => props.theme.colors.textLight};
-`;
-
 const FullViewTitle = styled.h2`
   padding: 15px;
   font-size: 48px;
+  display: flex;
+  align-items: center;
 `;
 
 const Content = styled.div`
@@ -76,7 +77,7 @@ const DetailsButton = styled.button`
   }
 `;
 
-const DetailsPanel = ({ stopPoint, onPanelClosed }) => {
+const DetailsPanel = ({ selectedStop, stopPoint, onPanelClosed }) => {
   const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
   const dispatch = useDispatch();
   const { height } = useWindowSize();
@@ -158,10 +159,11 @@ const DetailsPanel = ({ stopPoint, onPanelClosed }) => {
           })
         }}
       >
-        <QuickViewTitle>Manor Gardens</QuickViewTitle>
+        <QuickViewTitle title={selectedStop.commonName} />
         <FullViewTitle
           as={animated.h2}
           style={{
+            height: headerFullTranslatePxValue + "px",
             opacity: y.interpolate(y => {
               if (y >= panelStopPoints[PanelVisibility.SMALL]) {
                 return 0;
@@ -171,14 +173,16 @@ const DetailsPanel = ({ stopPoint, onPanelClosed }) => {
             })
           }}
         >
-          Manor Gardens
+          {selectedStop.commonName}
         </FullViewTitle>
       </Header>
       <Content>
         <DetailsButton onClick={toggleDetails}>
           <DetailsIcon width="28" />
-          <CloseIcon width="28" />
+          <CloseIcon width="28" style={{ opacity: 0 }} />
         </DetailsButton>
+
+        <QuickViewContent routes={selectedStop.lines}></QuickViewContent>
       </Content>
     </StyledDetailsPanel>
   );
