@@ -1,0 +1,226 @@
+{
+  "stopPoints": [
+    {
+      "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+      "naptanId": "490013836F",
+      "indicator": "Stop F",
+      "stopLetter": "F",
+      "modes": ["bus"],
+      "icsCode": "1013836",
+      "stopType": "NaptanPublicBusCoachTram",
+      "stationNaptan": "490G00013836",
+      "lines": [
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "17",
+          "name": "17",
+          "uri": "/Line/17",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "263",
+          "name": "263",
+          "uri": "/Line/263",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "271",
+          "name": "271",
+          "uri": "/Line/271",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "43",
+          "name": "43",
+          "uri": "/Line/43",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "n41",
+          "name": "N41",
+          "uri": "/Line/n41",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        }
+      ],
+      "lineGroup": [
+        {
+          "$type": "Tfl.Api.Presentation.Entities.LineGroup, Tfl.Api.Presentation.Entities",
+          "naptanIdReference": "490013836F",
+          "stationAtcoCode": "490G00013836",
+          "lineIdentifier": ["17", "263", "271", "43", "n41"]
+        }
+      ],
+      "lineModeGroups": [
+        {
+          "$type": "Tfl.Api.Presentation.Entities.LineModeGroup, Tfl.Api.Presentation.Entities",
+          "modeName": "bus",
+          "lineIdentifier": ["17", "263", "271", "43", "n41"]
+        }
+      ],
+      "status": true,
+      "id": "490013836F",
+      "commonName": "Tufnell Park Road",
+      "distance": 149.27473397945352,
+      "placeType": "StopPoint",
+      "additionalProperties": [
+        {
+          "$type": "Tfl.Api.Presentation.Entities.AdditionalProperties, Tfl.Api.Presentation.Entities",
+          "category": "Direction",
+          "key": "CompassPoint",
+          "sourceSystemKey": "Naptan490",
+          "value": "N"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.AdditionalProperties, Tfl.Api.Presentation.Entities",
+          "category": "Direction",
+          "key": "Towards",
+          "sourceSystemKey": "CountDown",
+          "value": "Archway"
+        }
+      ],
+      "children": [],
+      "lat": 51.559144,
+      "lon": -0.121661
+    },
+    {
+      "$type": "Tfl.Api.Presentation.Entities.StopPoint, Tfl.Api.Presentation.Entities",
+      "naptanId": "490014778Q",
+      "indicator": "Stop P",
+      "stopLetter": "P",
+      "modes": ["bus"],
+      "icsCode": "1014778",
+      "stopType": "NaptanPublicBusCoachTram",
+      "stationNaptan": "490G00014778",
+      "lines": [
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "17",
+          "name": "17",
+          "uri": "/Line/17",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "263",
+          "name": "263",
+          "uri": "/Line/263",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "271",
+          "name": "271",
+          "uri": "/Line/271",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "43",
+          "name": "43",
+          "uri": "/Line/43",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.Identifier, Tfl.Api.Presentation.Entities",
+          "id": "n41",
+          "name": "N41",
+          "uri": "/Line/n41",
+          "type": "Line",
+          "crowding": {
+            "$type": "Tfl.Api.Presentation.Entities.Crowding, Tfl.Api.Presentation.Entities"
+          },
+          "routeType": "Unknown",
+          "status": "Unknown"
+        }
+      ],
+      "lineGroup": [
+        {
+          "$type": "Tfl.Api.Presentation.Entities.LineGroup, Tfl.Api.Presentation.Entities",
+          "naptanIdReference": "490014778Q",
+          "stationAtcoCode": "490G00014778",
+          "lineIdentifier": ["17", "263", "271", "43", "n41"]
+        }
+      ],
+      "lineModeGroups": [
+        {
+          "$type": "Tfl.Api.Presentation.Entities.LineModeGroup, Tfl.Api.Presentation.Entities",
+          "modeName": "bus",
+          "lineIdentifier": ["17", "263", "271", "43", "n41"]
+        }
+      ],
+      "status": true,
+      "id": "490014778Q",
+      "commonName": "Manor Gardens",
+      "distance": 170.50261525089056,
+      "placeType": "StopPoint",
+      "additionalProperties": [
+        {
+          "$type": "Tfl.Api.Presentation.Entities.AdditionalProperties, Tfl.Api.Presentation.Entities",
+          "category": "Direction",
+          "key": "CompassPoint",
+          "sourceSystemKey": "Naptan490",
+          "value": "S"
+        },
+        {
+          "$type": "Tfl.Api.Presentation.Entities.AdditionalProperties, Tfl.Api.Presentation.Entities",
+          "category": "Direction",
+          "key": "Towards",
+          "sourceSystemKey": "CountDown",
+          "value": "Highbury Corner or Kings Cross"
+        }
+      ],
+      "children": [],
+      "lat": 51.559976,
+      "lon": -0.122464
+    }
+  ]
+}

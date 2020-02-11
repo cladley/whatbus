@@ -14,7 +14,11 @@ const StyledStopMarker = styled.div`
 `;
 
 const StopMarker = ({ stopLetter, onClick }) => {
-  return <StyledStopMarker onClick={onClick}>{stopLetter}</StyledStopMarker>;
+  return (
+    <StyledStopMarker data-testid="stop marker" onClick={onClick}>
+      {stopLetter}
+    </StyledStopMarker>
+  );
 };
 
 export default StopMarker;

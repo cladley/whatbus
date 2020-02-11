@@ -28,9 +28,9 @@ const QuickViewContent = ({ routes = [] }) => {
   return (
     <StyledQuickViewContent>
       <h4>Serves: </h4>
-      <RouteList>
+      <RouteList data-testid="quick-routes-list">
         {routes.map((r, index) => (
-          <li key={r.id}>{r.name}</li>
+          <li key={r.id}>{r.name} </li>
         ))}
       </RouteList>
     </StyledQuickViewContent>

@@ -27,13 +27,11 @@ const ExplorerView = () => {
     setSelectedStop(stop);
     setStopPoint(PanelVisibility.SMALL);
   };
-
   return (
     <Page>
       <GoogleMap>
         {Object.keys(stops).map(naptanId => {
           const stop = stops[naptanId];
-          console.log(stop);
           return (
             <StopMarker
               key={naptanId}
