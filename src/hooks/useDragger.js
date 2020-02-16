@@ -8,7 +8,7 @@ function useDragger(
   set,
   bounds,
   stopPoints,
-  onStopPointReached
+  onStopPointReached = () => {}
 ) {
   const bind = useDrag(({ vxvy, movement, last, memo, event }) => {
     const coordinate = direction === "horizontal" ? 0 : 1;

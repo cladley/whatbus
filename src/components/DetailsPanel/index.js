@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components/macro";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useSpring, animated } from "react-spring";
 
 import QuickViewTitle from "./QuickViewTitle";
@@ -79,9 +79,9 @@ const DetailsButton = styled.button`
 
 const DetailsPanel = ({ selectedStop, stopPoint, onPanelClosed }) => {
   const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
-  const dispatch = useDispatch();
   const { height } = useWindowSize();
   const panelOpenState = useRef(stopPoint);
+  const dispatch = useDispatch();
 
   const panelHeight = height * 0.6;
   const panelStopPoints = [0, -100, -panelHeight];
