@@ -10,18 +10,22 @@ const StyledQuickViewTitle = styled.h2`
   top: 0;
 `;
 
-const QuickViewTitle = ({ title }) => {
+const QuickViewTitle = ({ title, ...otherProps }) => {
   const titleTransition = useTransition(title, t => t, {
     from: { transform: "translate3d(0,-40px,0)" },
     enter: { transform: "translate3d(0,0px,0)" },
     leave: { transform: "translate3d(0, 40px, 0)" }
   });
 
-  return titleTransition.map(({ item, props, key }) => (
-    <StyledQuickViewTitle as={animated.h2} key={key} style={props}>
-      {item}
-    </StyledQuickViewTitle>
-  ));
+  return (
+    <animated.div {...otherProps}>
+      {titleTransition.map(({ item, props, key }) => (
+        <StyledQuickViewTitle as={animated.h2} key={key} style={props}>
+          {item}
+        </StyledQuickViewTitle>
+      ))}
+    </animated.div>
+  );
 };
 
 export default QuickViewTitle;

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
+import { animated } from "react-spring";
 
 const StyledQuickViewContent = styled.div`
   padding: ${props => props.theme.padding.standard};
@@ -24,9 +25,9 @@ const RouteList = styled.ul`
   }
 `;
 
-const QuickViewContent = ({ routes = [] }) => {
+const QuickViewContent = ({ routes = [], ...props }) => {
   return (
-    <StyledQuickViewContent>
+    <StyledQuickViewContent as={animated.div} {...props}>
       <h4>Serves: </h4>
       <RouteList data-testid="quick-routes-list">
         {routes.map((r, index) => (

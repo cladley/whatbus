@@ -159,7 +159,18 @@ const DetailsPanel = ({ selectedStop, stopPoint, onPanelClosed }) => {
           })
         }}
       >
-        <QuickViewTitle title={selectedStop.commonName} />
+        <QuickViewTitle
+          title={selectedStop.commonName}
+          style={{
+            opacity: y.interpolate(y => {
+              if (y <= 0 && y >= panelStopPoints[PanelVisibility.SMALL]) {
+                return 1;
+              }
+
+              return utilities.rangeMap([-100, -panelHeight], [1, 0], y);
+            })
+          }}
+        />
         <FullViewTitle
           as={animated.h2}
           style={{
@@ -182,7 +193,18 @@ const DetailsPanel = ({ selectedStop, stopPoint, onPanelClosed }) => {
           <CloseIcon width="28" style={{ opacity: 0 }} />
         </DetailsButton>
 
-        <QuickViewContent routes={selectedStop.lines}></QuickViewContent>
+        <QuickViewContent
+          routes={selectedStop.lines}
+          style={{
+            opacity: y.interpolate(y => {
+              if (y <= 0 && y >= panelStopPoints[PanelVisibility.SMALL]) {
+                return 1;
+              }
+
+              return utilities.rangeMap([-100, -panelHeight], [1, 0], y);
+            })
+          }}
+        ></QuickViewContent>
       </Content>
     </StyledDetailsPanel>
   );
